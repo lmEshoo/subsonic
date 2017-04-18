@@ -1,6 +1,6 @@
 # subsonic
 
-##Usage
+## Usage
 
 ```bash
 make
