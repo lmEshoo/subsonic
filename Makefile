@@ -18,3 +18,6 @@ build:
 
 start:
 	cd Flask && nohup python app.py &
+
+clean: down
+	kill -9 `ps -aux | grep python | grep -v grep | awk '{ print $2 }'`
