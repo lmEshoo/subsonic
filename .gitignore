@@ -1,2 +1,3 @@
-setENV.sh
+*.env
 *.pem
+/Flask/*sh

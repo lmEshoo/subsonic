@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  exec_gateway:
+    image: lmestar/subsonic
+    container_name: subsonic
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_SUB_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SUB_SECRET_ACCESS_KEY}
+    network_mode: "bridge"
+    ports:
+      - "4040:4040"

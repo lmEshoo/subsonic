@@ -3,7 +3,7 @@
 ## Usage
 
 ```bash
-make
+make start
 ```
 
 **Note: Make sure your aws credentials are set**
