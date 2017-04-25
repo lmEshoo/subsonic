@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  exec_gateway:
+  subsonic:
     image: lmestar/subsonic
     container_name: subsonic
     environment:

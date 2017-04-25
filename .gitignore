@@ -1,3 +1,5 @@
 *.env
 *.pem
+*.html
 /Flask/*sh
+/downloader/*.txt
