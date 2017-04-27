@@ -8,7 +8,7 @@ all: build run
 build:
 	docker build -t $(IMAGE) .
 
-run:
+run: build
 	docker run \
 		--name=$(CONTAINER_NAME) \
 		-e AWS_ACCESS_KEY_ID=${AWS_SUB_ACCESS_KEY_ID} \
