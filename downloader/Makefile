@@ -24,7 +24,7 @@ go: build
 		--name=$(CONTAINER_NAME) \
 		-e AWS_ACCESS_KEY_ID=${AWS_SUB_ACCESS_KEY_ID} \
  		-e AWS_SECRET_ACCESS_KEY=${AWS_SUB_SECRET_ACCESS_KEY} \
-		-it --entrypoint=sh \
+		-it --entrypoint=bash \
 		-p 5010:5010 $(IMAGE)
 
 exec:

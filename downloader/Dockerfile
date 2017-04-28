@@ -1,9 +1,24 @@
-FROM python:2.7-alpine
+FROM python:2.7-slim
 
 RUN \
-  apk add --update --no-cache bash ffmpeg git python python-dev py-pip && \
-  pip install -U Flask youtube-dl bs4 awscli && \
-  apk del git python-dev
+  apt-get update && \
+  apt-get install -y --no-install-recommends \
+    bash \
+    libav-tools \
+    git \
+    python \
+    python-dev \
+    python-pip && \
+  pip install -U \
+    Flask \
+    youtube-dl \
+    bs4 \
+    awscli \
+    instantmusic \
+    fixalbumart \
+    eyed3 \
+    requests \
+  && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 5010
 
