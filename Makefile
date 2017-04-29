@@ -18,12 +18,15 @@ build:
 
 start: flask_up
 
-flask_up: up dl_up
+flask_up: up dl_up rec_up
 	 cd Flask && nohup python app.py &
 	 #cd Flask && python app.py
 
 dl_up:
 	sh sub-dl.sh up
+
+rec_up:
+	sh sub-dl.sh rec
 
 clean: down
 	sh sub-dl.sh down

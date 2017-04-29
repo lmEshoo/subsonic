@@ -1,7 +1,9 @@
 FROM python:2.7-slim
 
+MAINTAINER liniMestar@gmail.com
+
 RUN \
-  apt-get update && \
+  apt-get update -qq && \
   apt-get install -y --no-install-recommends \
     bash \
     libav-tools \
@@ -17,8 +19,8 @@ RUN \
     instantmusic \
     fixalbumart \
     eyed3 \
-    requests \
-  && rm -rf /var/lib/apt/lists/*
+    requests && \
+  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 5010
 
