@@ -1,4 +1,4 @@
-import spotipy, subprocess, time
+import spotipy, subprocess, time, os
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
 from random import randint
@@ -11,20 +11,25 @@ songs=[]
 def show_recommendations_for_artists(id):
     tmp=[]
     #sort, aggregate
+    #get top 6 Recommendations
     results = spotify.recommendations(seed_artists = id, limit=6)
+    print '\nRecommendations:'
     for track in results['tracks']:
+        print str(track['name']).encode('utf-8') \
+            + ' '+ str(track['artists'][0]['name']).encode('utf-8')
         tmp.append(str(track['name']+ ' '+ track['artists'][0]['name']))
-    songs.append(tmp[randint(0,5)])
+    #pick a random song from top 3
+    songs.append(tmp[randint(0,3)])
 
 #download
 def sa():
-    print songs
+    print 'Going to Download: \n', songs
     for i in range(len(songs)):
         subprocess.call(\
             "curl -X POST -H \
             'Content-Type: application/json' \
             -d '{ \"name\": \""+str(songs[i])+"\" }'  \
-            http://34.203.199.197:5010/better", shell=True)
+            http://"+os.environ.get('INSTANCE_IP')+":5010/better", shell=True)
         print ("Downloading", songs[i])
         time.sleep(20)
 
@@ -39,7 +44,7 @@ def get_id(query):
 	song_genres= spotify.search(q=song_artist,type='artist') [u'artists'][u'items'][0][u'genres']
 	#print song_genres[0:3]
 	song_artist_id = song[u'tracks'][u'items'][0][u'artists'][0][u'id']
-	#print song_artist + ' - ' + song_name + ' (' + song_artist_id + ')'
+	print song_artist + ' - ' + song_name + ' (' + song_artist_id + ')'
 
 	return str(song_artist_id)
 

@@ -1,4 +1,4 @@
-FROM python:2.7-slim
+FROM resin/rpi-raspbian:jessie
 
 MAINTAINER liniMestar@gmail.com
 
@@ -10,6 +10,7 @@ RUN \
     git \
     python \
     python-dev \
+    python-flask \
     python-pip && \
   pip install -U \
     Flask \

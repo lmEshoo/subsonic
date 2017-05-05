@@ -1,4 +1,4 @@
-FROM java:8-jre
+FROM hypriot/rpi-java:jre-1.8.111
 
 MAINTAINER liniMestar@gmail.com
 
@@ -6,7 +6,7 @@ USER root
 
 RUN \
   apt-get -y update && \
-  apt-get install -y python-pip && \
+  apt-get install -y python-pip wget && \
   pip install awscli && \
   rm -rf /var/lib/apt/lists/* && \
   echo "exit 0">/usr/sbin/policy-rc.d && \

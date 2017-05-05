@@ -3,4 +3,6 @@
 *.pem
 *.html
 /Flask/*sh
+/Flask/*.out
 /downloader/*.txt
+/aggregator/*

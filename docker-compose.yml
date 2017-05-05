@@ -2,7 +2,8 @@ version: '2'
 
 services:
   subsonic:
-    image: lmestar/subsonic
+    #build: .
+    image: lmestar/subsonic:arm
     container_name: subsonic
     environment:
       AWS_ACCESS_KEY_ID: ${AWS_SUB_ACCESS_KEY_ID}

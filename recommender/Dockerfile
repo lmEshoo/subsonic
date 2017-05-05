@@ -1,4 +1,4 @@
-FROM python:2.7-alpine
+FROM rcarmo/alpine-python:2.7.12-armhf
 
 MAINTAINER liniMestar@gmail.com
 
