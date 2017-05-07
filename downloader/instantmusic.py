@@ -3,7 +3,7 @@
 from __future__ import print_function
 import os
 import sys
-import re
+import re, time
 import readline
 import eyed3
 from bs4 import BeautifulSoup
@@ -146,7 +146,7 @@ def query_and_download(search, has_prompts=True, is_quiet=False):
     if not is_quiet:
         print('Downloading')
     os.system(command)
-
+    time.sleep(5)
     #Fixing id3 tags
     try:
         print ('Fixing id3 tags')

@@ -1,13 +1,14 @@
 import boto3, os, re
 
-def get_s3():
-    s3client = boto3.client(
-        's3',
-        aws_access_key_id=os.environ.get('AWS_SUB_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.environ.get('AWS_SUB_SECRET_ACCESS_KEY')
-        )
+s3client = boto3.client(
+    's3',
+    aws_access_key_id=os.environ.get('AWS_SUB_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.environ.get('AWS_SUB_SECRET_ACCESS_KEY')
+    )
 
-    theobjects = s3client.list_objects_v2(Bucket="drake-more-life")
+theobjects = s3client.list_objects_v2(Bucket="drake-more-life")
+
+def get_s3():
     tmp=[]
     new=[]
     for object in theobjects["Contents"]:

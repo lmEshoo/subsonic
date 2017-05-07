@@ -28,4 +28,4 @@ go: build
 		-p 5010:5010 $(IMAGE)
 
 exec:
-	docker exec -it $(CONTAINER_NAME) sh
+	docker exec -it $(CONTAINER_NAME) bash

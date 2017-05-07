@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request
 import urllib, urllib2, json
 from bs4 import BeautifulSoup
-import subprocess, sys
+import subprocess, sys, coverart, time
 
 app = Flask(__name__)
 
@@ -23,7 +23,8 @@ def downloader():
         subprocess.call(\
             "youtube-dl -x --audio-format mp3 -o '/src/tmp/%(title)s.%(ext)s' " \
             +url, shell=True)
-        subprocess.call("sh upload.sh", shell=True)
+        time.sleep(1)
+        subprocess.call("bash upload.sh", shell=True)
         return "Got "+vid['title']+'.mp3'
     except:
         return "Youtube Downloader failed."
@@ -33,7 +34,24 @@ def better():
     try:    #donwload and upload
         subprocess.call("python instantmusic.py -p -q -s "\
             +request.json['name'], shell=True)
-        subprocess.call("sh upload.sh", shell=True)
+        time.sleep(1)
+        subprocess.call("bash upload.sh", shell=True)
+        return "Yooo I got it."
+    except:
+        return "Downloader failed to get a better song."
+
+@app.route("/coverart", methods=['POST'])
+def art():
+    try:    #donwload and upload
+        subprocess.call("python instantmusic.py -p -q -s "\
+            +request.json['name'], shell=True)
+        time.sleep(1)
+        try:    #Get getting the coverart
+            coverart.getImage(request.json['name'], request.json['image'])
+            time.sleep(1)
+            subprocess.call("bash upload.sh", shell=True)
+        except:
+            subprocess.call("bash upload.sh", shell=True)
         return "Yooo I got it."
     except:
         return "Downloader failed to get a better song."

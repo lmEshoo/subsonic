@@ -8,6 +8,7 @@ RUN \
     bash \
     libav-tools \
     git \
+    wget \
     python \
     python-dev \
     python-flask \
