@@ -5,7 +5,7 @@ import os
 import sys
 import re, time
 import readline
-import eyed3
+import eyed3, subprocess
 from bs4 import BeautifulSoup
 import requests
 # Version compatiblity
@@ -129,10 +129,9 @@ def query_and_download(search, has_prompts=True, is_quiet=False):
 
 
     command_tokens = [
-        'youtube-dl',
+        'youtube-dl -v --continue ',
         '--extract-audio',
         '--audio-format mp3',
-        '--audio-quality 0',
         '--output \'/src/tmp/%(title)s.%(ext)s\'', #/src/tmp/
         'https://www.youtube.com' + video_link]
 
@@ -145,8 +144,10 @@ def query_and_download(search, has_prompts=True, is_quiet=False):
     # Youtube-dl is a proof that god exists.
     if not is_quiet:
         print('Downloading')
-    os.system(command)
-    time.sleep(5)
+    #os.system(command)
+    subprocess.call(command, shell=True)
+
+    #time.sleep(5)
     #Fixing id3 tags
     try:
         print ('Fixing id3 tags')

@@ -6,7 +6,7 @@ USER root
 
 RUN \
   apt-get -y update && \
-  apt-get install -y python-pip wget && \
+  apt-get install -y python-pip curl wget && \
   pip install awscli && \
   rm -rf /var/lib/apt/lists/* && \
   echo "exit 0">/usr/sbin/policy-rc.d && \
@@ -19,11 +19,15 @@ WORKDIR /app
 RUN \
   chown -R root:users /app && \
   wget \
-  https://downloads.sourceforge.net/project/subsonic/subsonic/6.0/subsonic-6.0.deb && \
-  dpkg -i /app/subsonic-6.0.deb
+  https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6.1.beta2.deb && \
+  dpkg -i /app/subsonic-6.1.beta2.deb
 
 ADD . /app
 
-CMD sh getMusic.sh && \
-  dpkg -i /app/subsonic-6.0.deb && \
+ADD setSubCoverArt.py /var/music/
+
+CMD \
+  bash getMusic.sh && \
+  dpkg -i /app/subsonic-6.1.beta2.deb && \
+  bash sub-dl.sh post && \
   sleep 1 && tail -f /var/subsonic/subsonic_sh.log

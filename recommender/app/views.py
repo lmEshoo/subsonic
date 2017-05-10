@@ -4,10 +4,43 @@ import spotify
 import boto, os
 import time, subprocess
 
+@app.route('/download',methods=['POST'])
+def download():
+    try: #refresh my library (one time)
+        artist_ids=[]
+        refresh=[]
+        song = request.json['song']
+        print "here"
+        print spotify.songs
+        try:
+            print "here0"
+            refresh.append(spotify.fixLib(song))
+            print "here1"
+            spotify.sa()
+            return "done"
+        except:
+            try:
+                spotify.songs.pop(0)
+                print "here2", spotify.fixLib(' '.join(song.split()[:3]))
+                refresh.append(spotify.fixLib(' '.join(song.split()[:3])))
+                spotify.sa()
+                return "done"
+            except:
+                try:
+                    spotify.songs.pop(0)
+                    print "here3", spotify.fixLib(' '.join(song.split()[:2]))
+                    refresh.append(spotify.fixLib(' '.join(song.split()[:2])))
+                    spotify.sa()
+                    return "done"
+                except:
+                    pass
+    except:
+        #subprocess.call("cd .. && make restart", shell=True)
+        return "couldn't download"
+
 @app.route('/search',methods=['GET'])
 def search():
     try:
-        artist_ids=[]
         #get artist id
         for song in boto.get_s3():
             try:
