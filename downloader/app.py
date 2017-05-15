@@ -42,24 +42,25 @@ def better():
 
 @app.route("/coverart", methods=['POST'])
 def art():
-    try: #donwload and upload
-        print request.json['name'] , request.json['image']
-        subprocess.call("python instantmusic.py -p -s "\
-            +request.json['name'].lower()+" song audio", shell=True)
-        time.sleep(0.5)
-        print "FINISHED DOWNLOADING"
-        #Get getting the coverart
-        coverart.getImage( \
-            request.json['name'], \
-            request.json['image'], \
-            request.json['artist'] )
-        time.sleep(0.5)
-        subprocess.call("bash upload.sh", shell=True)
-        return "Yooo I got it."
-    except:
-        subprocess.call("bash upload.sh", shell=True)
-        print "Error: getting coverart art failed"
-        return "Yooo Something went wrong."
+    #try: #donwload and upload
+    print request.json
+    print request.json['name'] , request.json['image']
+    subprocess.call("python instantmusic.py -p -s "\
+        +request.json['name'].lower()+" song audio", shell=True)
+    time.sleep(0.5)
+    print "FINISHED DOWNLOADING"
+    #Get getting the coverart
+    coverart.getImage( \
+        request.json['name'], \
+        request.json['image'], \
+        request.json['artist'] )
+    time.sleep(0.5)
+    subprocess.call("bash upload.sh", shell=True)
+    return "Yooo I got it."
+    # except:
+    #     subprocess.call("bash upload.sh", shell=True)
+    #     print "Error: getting coverart art failed"
+    #     return "Yooo Something went wrong."
 
 if __name__ == "__main__":
     app.run(host= '0.0.0.0', port='5010')

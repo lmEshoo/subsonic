@@ -19,6 +19,17 @@ run: build
  		-e SUB_PASS=${SUB_PASS} \
 		-d -p 4040:4040 $(IMAGE)
 
+go: build
+	docker run \
+		--name=$(CONTAINER_NAME) \
+		-e AWS_ACCESS_KEY_ID=${AWS_SUB_ACCESS_KEY_ID} \
+		-e AWS_SECRET_ACCESS_KEY=${AWS_SUB_SECRET_ACCESS_KEY} \
+		-e INSTANCE_IP=${INSTANCE_IP} \
+		-e SUB_USER=${SUB_USER} \
+		-e SUB_PASS=${SUB_PASS} \
+		-it --entrypoint=bash \
+		-p 4040:4040 $(IMAGE)
+
 up: run
 
 down:

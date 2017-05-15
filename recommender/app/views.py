@@ -6,55 +6,48 @@ import time, subprocess
 
 @app.route('/download',methods=['POST'])
 def download():
-    try: #refresh my library (one time)
-        artist_ids=[]
-        refresh=[]
-        song = request.json['song']
-        print "here"
-        print spotify.songs
-        try:
-            print "here0"
-            refresh.append(spotify.fixLib(song))
-            print "here1"
-            spotify.sa()
-            return "done"
-        except:
-            try:
-                spotify.songs.pop(0)
-                print "here2", spotify.fixLib(' '.join(song.split()[:3]))
-                refresh.append(spotify.fixLib(' '.join(song.split()[:3])))
-                spotify.sa()
-                return "done"
-            except:
-                try:
-                    spotify.songs.pop(0)
-                    print "here3", spotify.fixLib(' '.join(song.split()[:2]))
-                    refresh.append(spotify.fixLib(' '.join(song.split()[:2])))
-                    spotify.sa()
-                    return "done"
-                except:
-                    pass
+    #refresh my library (one time)
+    artist_ids=[]
+    refresh=[]
+    song = request.json['song']
+    print song
+    print spotify.songs
+    try:
+        refresh.append(spotify.fixLib(song))
+        spotify.sa()
     except:
-        #subprocess.call("cd .. && make restart", shell=True)
-        return "couldn't download"
+        for i in range(3, 1, -1):
+            spotify.songs.pop(0)
+            refresh.append(spotify.fixLib(' '.join(song.split()[:i])))
+            spotify.sa()
+            break
+
+    return "done"
+    #subprocess.call("cd .. && make restart", shell=True)
 
 @app.route('/search',methods=['GET'])
 def search():
     try:
+        artist_ids=[]
+        refresh=[]
         #get artist id
         for song in boto.get_s3():
             try:
                 artist_ids.append(spotify.get_id(song))
+                continue
             except:
                 try:
                     artist_ids.append(spotify.get_id(' '.join(song.split()[:3]) ) )
+                    continue
                 except:
                     try:
                         artist_ids.append(spotify.get_id(' '.join(song.split()[:2]) ) )
+                        continue
                     except:
-                        pass
+                        continue
         #recommend only works for one to five seeds.
         artist_ids= [artist_ids[x:x+5] for x in range(0, len(artist_ids),5)]
+        print artist_ids
         #get recommended songs (20 songs)
         for i in range(len(artist_ids)):
             #print artist_ids[i]
@@ -63,7 +56,6 @@ def search():
                 time.sleep(1)
             except:
                 pass
-
         spotify.sa()
         return "done"
     except:

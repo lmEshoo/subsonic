@@ -13,7 +13,9 @@ def get_s3():
     new=[]
     for object in theobjects["Contents"]:
         #anything that has mp3
-        tmp.append(object["Key"].replace(".mp3", ''))
+        if ".mp3" in object["Key"]:
+            tmp.append(object["Key"].replace(".mp3", ''))
+
     #anything that has zip
     tmp=[ x for x in tmp if "zip" not in x ]
     for i in tmp:

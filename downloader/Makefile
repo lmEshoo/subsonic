@@ -10,7 +10,7 @@ build:
 
 run: build
 	 docker run \
-		--name=$(CONTAINER_NAME) \
+		--name=$(CONTAINER_NAME) --restart on-failure \
 		-e AWS_ACCESS_KEY_ID=${AWS_SUB_ACCESS_KEY_ID} \
  		-e AWS_SECRET_ACCESS_KEY=${AWS_SUB_SECRET_ACCESS_KEY} \
 		-d -p 5010:5010 $(IMAGE)

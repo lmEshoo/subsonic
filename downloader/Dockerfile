@@ -22,6 +22,7 @@ RUN \
     fixalbumart \
     eyed3 \
     requests && \
+  easy_install pathlib && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 5010

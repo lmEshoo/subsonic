@@ -6,11 +6,18 @@ USER root
 
 RUN \
   apt-get -y update && \
-  apt-get install -y python-pip curl wget && \
-  pip install awscli && \
+  apt-get install -y \
+    python-pip \
+    curl \
+    wget && \
+  pip install -U \
+    awscli \
+    eyed3 \
+    requests && \
   rm -rf /var/lib/apt/lists/* && \
   echo "exit 0">/usr/sbin/policy-rc.d && \
-  mkdir -p /app
+  mkdir -p /app && \
+  easy_install pathlib
 
 EXPOSE 4040
 
@@ -25,6 +32,8 @@ RUN \
 ADD . /app
 
 ADD setSubCoverArt.py /var/music/
+
+ADD setTags.py /var/music/
 
 CMD \
   bash getMusic.sh && \
