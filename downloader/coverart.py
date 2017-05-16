@@ -6,7 +6,7 @@ import glob, time
 def getImage(name, link, artist):
     name="".join(name.split())+".jpg"
     print "NEW: Getting Cover Art", name
-    command="wget "+link+ " -q -O /src/tmp/"+name
+    command="wget "+link+ " -q -O /src/tmp/"+"'"+name+"'"
     print "COMMAND: " + command
     subprocess.call(command, shell=True)
     print "Image Directory: ",str(glob.glob("/src/tmp/*"))

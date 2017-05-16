@@ -73,3 +73,18 @@ def recommend(query):
 	show_recommendations_for_artists(ID_list)
 
 	return "str1"
+
+def recommend_tracks(artist):
+    artist=spotify.search(q='artist:' + artist, type='artist')
+    if artist['artists']['items'][0]:
+        artist=artist['artists']['items'][0]
+        recommendedMusic=[]
+        #get top 5 of artist
+        #print artist['id']
+        tracks=spotify.artist_top_tracks(artist['id'], country='US')['tracks']
+        for track in tracks[:10]:
+            print track['name']
+            recommendedMusic.append(artist['name']+" "+track['name'])
+        return recommendedMusic
+    else:
+        return "can't find artist"

@@ -4,6 +4,36 @@ import spotify
 import boto, os
 import time, subprocess
 
+#get top songs of arists
+@app.route('/recommend/artist',methods=['POST'])
+def recommendArtist():
+    #refresh my library (one time)
+    artist_ids=[]
+    refresh=[]
+    artist = request.json['artist']
+    print artist
+    songs=spotify.recommend_tracks(artist)
+    if songs:
+        for song in songs:
+            try:
+                refresh.append(spotify.fixLib(song))
+                spotify.sa()
+                if songs.index(song) > 0:
+                    spotify.songs.pop(0)
+            except:
+                # if songs.index(song) > 0:
+                #spotify.songs.pop(0)
+                continue
+                # for i in range(3, 1, -1):
+                #     #spotify.songs.pop(0)
+                #     refresh.append(spotify.fixLib(' '.join(song.split()[:i])))
+                #     spotify.sa()
+            spotify.songs.pop(0)
+        return "done"
+    else:
+        return "can't find artist"
+
+#download specific songs
 @app.route('/download',methods=['POST'])
 def download():
     #refresh my library (one time)
@@ -23,8 +53,9 @@ def download():
             break
 
     return "done"
-    #subprocess.call("cd .. && make restart", shell=True)
 
+
+#recommend new songs
 @app.route('/search',methods=['GET'])
 def search():
     try:
