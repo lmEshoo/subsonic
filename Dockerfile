@@ -13,7 +13,8 @@ RUN \
   pip install -U \
     awscli \
     eyed3 \
-    requests && \
+    requests \
+    spotipy && \
   rm -rf /var/lib/apt/lists/* && \
   echo "exit 0">/usr/sbin/policy-rc.d && \
   mkdir -p /app && \
