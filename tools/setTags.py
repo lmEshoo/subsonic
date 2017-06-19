@@ -25,7 +25,7 @@ for i in songs:
     songs_names.append(i.replace(".mp3",""))
 
 print len(songs)
-print len(songs_names)
+# print len(songs_names)
 
 mkdir="mkdir -p /var/music/UNTITLED/UNTITLED_ALBUM/"
 subprocess.call(mkdir, shell=True)
@@ -88,7 +88,7 @@ def getAlbums(sub):
     url = "https://api.spotify.com/v1/search?q="+urllib.quote(re.sub("[\(\[].*?[\)\]]", "", " ".join(songs_names[song].replace("-","").replace(".","").replace(".mp3","").replace(".mp3","").split()[:sub])).encode('utf-8') )+"&type=track&market=US"
     r=requests.get(url, headers=headers)
     albums= json.loads(r.text)
-    print albums
+    # print albums
     return albums
 
 def again(song):
