@@ -4,14 +4,16 @@ IMAGE=lmestar/subsonic
 
 CONTAINER_NAME=subsonic
 
+VERSION=6.1
+
 all: down up
 
 build:
-	 docker build -t $(IMAGE) .
+	 docker build --build-arg SUB_VERSION=$(VERSION) -t $(IMAGE) .
 
 run: build
-	 docker run \
-		--name=$(CONTAINER_NAME) \
+	 sudo docker run \
+		--name=$(CONTAINER_NAME) -v /var/music:/var/music \
 		-e AWS_ACCESS_KEY_ID=${AWS_SUB_ACCESS_KEY_ID} \
  		-e AWS_SECRET_ACCESS_KEY=${AWS_SUB_SECRET_ACCESS_KEY} \
 		-e INSTANCE_IP=${INSTANCE_IP} \
@@ -20,8 +22,8 @@ run: build
 		-d -p 4040:4040 $(IMAGE)
 
 go: build
-	docker run \
-		--name=$(CONTAINER_NAME) \
+	sudo docker run \
+		--name=$(CONTAINER_NAME) -v /var/music:/var/music \
 		-e AWS_ACCESS_KEY_ID=${AWS_SUB_ACCESS_KEY_ID} \
 		-e AWS_SECRET_ACCESS_KEY=${AWS_SUB_SECRET_ACCESS_KEY} \
 		-e INSTANCE_IP=${INSTANCE_IP} \
