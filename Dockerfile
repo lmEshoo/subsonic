@@ -36,7 +36,7 @@ RUN \
 ADD . /app
 
 CMD \
-  bash getMusic.sh && \
+  bash /app/tools/getMusic.sh && \
   dpkg -i /app/subsonic.deb && \
-  bash sub-dl.sh post && \
+  bash /app/tools/sub-dl.sh post && \
   sleep 1 && tail -f /var/subsonic/subsonic_sh.log
