@@ -13,7 +13,7 @@ build:
 
 run: build
 	 sudo docker run \
-		--name=$(CONTAINER_NAME) -v /var/music:/var/music \
+		--name=$(CONTAINER_NAME) -v /var/music:/var/music -v /var/s3:/var/s3 \
 		-e AWS_ACCESS_KEY_ID=${AWS_SUB_ACCESS_KEY_ID} \
  		-e AWS_SECRET_ACCESS_KEY=${AWS_SUB_SECRET_ACCESS_KEY} \
 		-e INSTANCE_IP=${INSTANCE_IP} \
@@ -23,7 +23,7 @@ run: build
 
 go: build
 	sudo docker run \
-		--name=$(CONTAINER_NAME) -v /var/music:/var/music \
+		--name=$(CONTAINER_NAME) -v /var/music:/var/music -v /var/s3:/var/s3 \
 		-e AWS_ACCESS_KEY_ID=${AWS_SUB_ACCESS_KEY_ID} \
 		-e AWS_SECRET_ACCESS_KEY=${AWS_SUB_SECRET_ACCESS_KEY} \
 		-e INSTANCE_IP=${INSTANCE_IP} \
