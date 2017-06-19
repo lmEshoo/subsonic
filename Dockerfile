@@ -17,26 +17,26 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   echo "exit 0">/usr/sbin/policy-rc.d && \
   mkdir -p /app && \
+  mkdir -p /var/s3 && \
   easy_install pathlib
 
 EXPOSE 4040
 
 WORKDIR /app
 
+ARG SUB_VERSION
+
 RUN \
   chown -R root:users /app && \
   wget \
-  https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6.1.beta2.deb && \
-  dpkg -i /app/subsonic-6.1.beta2.deb
+  https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-${SUB_VERSION}.deb \
+  -O /app/subsonic.deb && \
+  dpkg -i /app/subsonic.deb
 
 ADD . /app
 
-ADD setSubCoverArt.py /var/music/
-
-ADD setTags.py /var/music/
-
 CMD \
   bash getMusic.sh && \
-  dpkg -i /app/subsonic-6.1.beta2.deb && \
+  dpkg -i /app/subsonic.deb && \
   bash sub-dl.sh post && \
   sleep 1 && tail -f /var/subsonic/subsonic_sh.log
