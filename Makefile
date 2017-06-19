@@ -4,7 +4,7 @@ IMAGE=lmestar/subsonic
 
 CONTAINER_NAME=subsonic
 
-VERSION=6.1
+VERSION=6.1.1
 
 all: down up
 
