@@ -28,7 +28,7 @@ restart: clean run
 
 go: build
 	docker run \
-		--name=$(CONTAINER_NAME) \
+		--name=$(CONTAINER_NAME) -v ${PWD}:/src \
 		-e AWS_ACCESS_KEY_ID=${AWS_SUB_ACCESS_KEY_ID} \
  		-e AWS_SECRET_ACCESS_KEY=${AWS_SUB_SECRET_ACCESS_KEY} \
 		-e SPOTIPY_CLIENT_ID=${SPOTIPY_CLIENT_ID} \

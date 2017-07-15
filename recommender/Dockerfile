@@ -11,6 +11,7 @@ RUN \
     py-pip && \
   pip install -U \
     Flask \
+    bs4 \
     spotipy \
     boto3 && \
   apk del git python-dev

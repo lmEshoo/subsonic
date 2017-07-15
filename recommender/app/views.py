@@ -1,7 +1,7 @@
 from flask import Flask, request
 from app import app
 import spotify
-import boto, os
+import boto, os, hnhh
 import time, subprocess
 
 #get top songs of arists
@@ -92,3 +92,14 @@ def search():
     except:
         subprocess.call("cd .. && make restart", shell=True)
         return "spotify is down."
+
+#Gets top 100 from HotNewHipHop
+@app.route("/hnhh", methods=['GET'])
+def specify_hnhh():
+    songs=hnhh.hnhh_get_music()
+    for song in songs:
+        subprocess.call(\
+            "curl -X POST -H \
+            'Content-Type: application/json' \
+            -d '{ \"name\": \""+str(song[0])+"\", \"image\": \""+str(song[1])+"\", \"artist\": \""+str(song[2])+"\" }'  \
+            http://"+os.environ.get('INSTANCE_IP')+":5010/coverart", shell=True)
