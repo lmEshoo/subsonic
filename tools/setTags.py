@@ -44,8 +44,8 @@ def infoSet(albums, index, last):
         audiofile.tag.save()
 
         #move UNTITLED songs to right directory
-        cp_image="mv /var/music/{0} /var/music/UNTITLED/UNTITLED_ALBUM/".format("'"+image+"'")
-        cp_song="mv /var/music/{0} /var/music/UNTITLED/UNTITLED_ALBUM/".format("'"+songs[index]+"'")
+        cp_image="mv /var/music/{0} /var/music/UNTITLED_ARTIST/UNTITLED_ALBUM/".format("'"+image+"'")
+        cp_song="mv /var/music/{0} /var/music/UNTITLED_ARTIST/UNTITLED_ALBUM/".format("'"+songs[index]+"'")
         subprocess.call(cp_image, shell=True)
         subprocess.call(cp_song, shell=True)
 
@@ -65,11 +65,11 @@ def infoSet(albums, index, last):
             #create and move song and cover art to right Directory
             image=difflib.get_close_matches(songs[song], images, 1, 0)[0]
             print "IMAGE: "+image
-            mkdir="mkdir -p /var/music/{0}/{1}/{2}/".format("'"+artist+"'","'"+album+"'","'"+songs_names[index]+"'")
+            mkdir="mkdir -p /var/music/{0}/{1}/".format("'"+artist+"'","'"+album+"'")
             print "MKDIR: "+ mkdir
             subprocess.call(mkdir, shell=True)
-            subprocess.call("mv /var/music/{0} /var/music/{1}/{2}/{3}/".format("'"+image+"'","'"+artist+"'","'"+album+"'","'"+songs_names[index]+"'"), shell=True)
-            subprocess.call("mv /var/music/{0} /var/music/{1}/{2}/{3}/".format("'"+songs[index]+"'","'"+artist+"'","'"+album+"'","'"+songs_names[index]+"'"), shell=True)
+            subprocess.call("mv /var/music/{0} /var/music/{1}/{2}/".format("'"+image+"'","'"+artist+"'","'"+album+"'"), shell=True)
+            subprocess.call("mv /var/music/{0} /var/music/{1}/{2}/".format("'"+songs[index]+"'","'"+artist+"'","'"+album+"'"), shell=True)
 
             #if artist in songs[index]:
             audiofile.tag.artist = artist.decode('utf-8')

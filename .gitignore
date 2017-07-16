@@ -6,3 +6,4 @@
 /downloader/*.txt
 /aggregator/*
 /recommender/test/*
+/tools/*_download*
