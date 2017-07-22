@@ -1,6 +1,5 @@
 #!/bin/bash
 #s3 bucket contains all my music called drake-more-life
-
 aws s3 sync s3://drake-more-life /var/s3
 
 s3_directory_path=/var/s3/
@@ -14,7 +13,7 @@ do
   if [[ $file_count -gt 0 ]]; then
     echo "Warning: $file_name found $file_count times in $music_directory_path!"
   else
-    echo "Error: $file_name not found in $music_directory_path!"
+    echo "New Song ALERT! $file_name not found in $music_directory_path!"
     cp $file $music_directory_path
   fi
 done
