@@ -45,6 +45,7 @@ def download():
     try:
         refresh.append(spotify.fixLib(song))
         spotify.sa()
+        spotify.songs.pop(0)
     except:
         for i in range(3, 1, -1):
             spotify.songs.pop(0)
