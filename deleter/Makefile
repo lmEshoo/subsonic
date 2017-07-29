@@ -10,7 +10,7 @@ build:
 
 run: build
 	 docker run \
-		--name=$(CONTAINER_NAME) --rm --restart on-failure \
+		--name=$(CONTAINER_NAME) --rm \
 		-v /var/music:/var/music -v /var/s3:/var/s3 -v ${PWD}:/src \
 		-e AWS_ACCESS_KEY_ID=${AWS_SUB_ACCESS_KEY_ID} \
  		-e AWS_SECRET_ACCESS_KEY=${AWS_SUB_SECRET_ACCESS_KEY} \
