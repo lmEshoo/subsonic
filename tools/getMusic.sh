@@ -11,9 +11,9 @@ do
   file_count=$(find $music_directory_path -name "$file_name" | wc -l)
   echo $file_name
   if [[ $file_count -gt 0 ]]; then
-    echo "Warning: $file_name found $file_count times in $music_directory_path!"
+    :
   else
     echo "New Song ALERT! $file_name not found in $music_directory_path!"
-    cp $file $music_directory_path
+    cp "$file" $music_directory_path
   fi
 done

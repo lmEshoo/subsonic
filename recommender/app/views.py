@@ -94,7 +94,7 @@ def search():
         subprocess.call("cd .. && make restart", shell=True)
         return "spotify is down."
 
-#Gets top 100 from HotNewHipHop
+#Gets current top 30 from HotNewHipHop
 @app.route("/hnhh", methods=['GET'])
 def specify_hnhh():
     songs=hnhh.hnhh_get_music()
